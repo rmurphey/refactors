@@ -55,8 +55,9 @@ db.once('value', function(data) {
     $('div.stickyHeader').remove();
 
     var tables = $('table.stickyHeader');
-    tables.each(function(i){
-      var table = $( tables[i] );
+    tables.each(function(i, table){
+      table = $( table );
+
       var theadClone = table.find('thead').clone(true);
       var stickyHeader =  $('<div></div>').addClass('stickyHeader hide');
 
