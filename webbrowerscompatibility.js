@@ -64,7 +64,7 @@ db.once('value', function(data) {
       var tableWidth = table.width() + parseInt( table.outerWidth(), 10 );
 
 			var headerCells = table.find('thead th');
-			var headerCellHeight = $(headerCells[0]).height();
+			var headerCellHeight = headerCells.first().height();
 
 			var no_fixed_support = false;
 			if (stickyHeader.css('position') == "absolute") {
