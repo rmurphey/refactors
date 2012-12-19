@@ -8,11 +8,11 @@ db.once('value', function(data) {
   data = data.val();
 
   var header = ['<th>&nbsp;</th>'];
-	_.chain(data).pluck('browser').pluck('description').uniq().each(function(browser){
-		header.push('<th><div data-content="'+browser+'">'+browser.split(' ')[0]+' '+browser.split(' ')[1].split('.')[0]+'</div></th>');
-	});
+  _.chain(data).pluck('browser').pluck('description').uniq().each(function(browser){
+    header.push('<th><div data-content="'+browser+'">'+browser.split(' ')[0]+' '+browser.split(' ')[1].split('.')[0]+'</div></th>');
+  });
 
-	$('table thead').append('<tr>'+header.join('')+'</tr>');
+  $('table thead').append('<tr>'+header.join('')+'</tr>');
 
   function generateRowData( category ) {
     var rows = [];
@@ -45,66 +45,66 @@ db.once('value', function(data) {
     'element-event'
   ], generateRowData);
 
-	$('#tableLoader').hide();
-	$('#tables').show();
+  $('#tableLoader').hide();
+  $('#tables').show();
 
   var win = $(window);
 
-	win.on('resize',function(){
+  win.on('resize',function(){
 
-		$('div.stickyHeader').remove();
+    $('div.stickyHeader').remove();
 
-		var tables = $('table.stickyHeader');
-		tables.each(function(i){
-			var table = $( tables[i] );
-			var theadClone = table.find('thead').clone(true);
-			var stickyHeader =  $('<div></div>').addClass('stickyHeader hide');
+    var tables = $('table.stickyHeader');
+    tables.each(function(i){
+      var table = $( tables[i] );
+      var theadClone = table.find('thead').clone(true);
+      var stickyHeader =  $('<div></div>').addClass('stickyHeader hide');
 
-			stickyHeader.append($('<table class="table table-bordered"></table>')).find('table').append(theadClone);
-			table.after(stickyHeader);
+      stickyHeader.append($('<table class="table table-bordered"></table>')).find('table').append(theadClone);
+      table.after(stickyHeader);
 
-			var tableHeight = table.height();
+      var tableHeight = table.height();
       var tableWidth = table.width() + parseInt( table.outerWidth(), 10 );
 
-			var headerCells = table.find('thead th');
-			var headerCellHeight = headerCells.first().height();
+      var headerCells = table.find('thead th');
+      var headerCellHeight = headerCells.first().height();
       var noFixedSupport = stickyHeader.css('position') === 'absolute' ? true : false;
-			var stickyHeaderCells = stickyHeader.find('th');
+      var stickyHeaderCells = stickyHeader.find('th');
 
-			stickyHeader.css('width', tableWidth);
+      stickyHeader.css('width', tableWidth);
 
       headerCells.each(function(j, headerCell) {
-				var cellWidth = $(headerCell).width();
-				stickyHeaderCells.eq(j).css('width', cellWidth);
+        var cellWidth = $(headerCell).width();
+        stickyHeaderCells.eq(j).css('width', cellWidth);
       });
 
-			var cutoffTop = table.offset().top;
-			var cutoffBottom = tableHeight + cutoffTop - headerCellHeight;
+      var cutoffTop = table.offset().top;
+      var cutoffBottom = tableHeight + cutoffTop - headerCellHeight;
 
-			win.scroll(function() {
+      win.scroll(function() {
         var currentPosition = win.scrollTop();
 
-				if (currentPosition > cutoffTop && currentPosition < cutoffBottom) {
-					stickyHeader.removeClass('hide');
-					if (noFixedSupport) {
-						stickyHeader.css('top', currentPosition + 'px');
-					}
+        if (currentPosition > cutoffTop && currentPosition < cutoffBottom) {
+          stickyHeader.removeClass('hide');
+          if (noFixedSupport) {
+            stickyHeader.css('top', currentPosition + 'px');
+          }
           return;
-				}
+        }
 
         stickyHeader.addClass('hide');
-			});
-		});
+      });
+    });
 
-	});
+  });
 
-	win.trigger('resize');
-	$('th div').popover({placement:'bottom',trigger:'hover',delay:100,title:'Browser Details',animation:false});
+  win.trigger('resize');
+  $('th div').popover({placement:'bottom',trigger:'hover',delay:100,title:'Browser Details',animation:false});
 
-	$('table:first th').each(function(num,elm){
-		if($(elm).find('div').data('content') === platform.description){
-			$('table td:nth-child('+($(elm).index()+1)+')').addClass('yourbrowser');
-		}
-	});
+  $('table:first th').each(function(num,elm){
+    if($(elm).find('div').data('content') === platform.description){
+      $('table td:nth-child('+($(elm).index()+1)+')').addClass('yourbrowser');
+    }
+  });
 
 });
