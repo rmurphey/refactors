@@ -48,7 +48,9 @@ db.once('value', function(data) {
 	$('#tableLoader').hide();
 	$('#tables').show();
 
-	$(window).on('resize',function(){
+  var win = $(window);
+
+	win.on('resize',function(){
 
 		$('div.stickyHeader').remove();
 
@@ -82,8 +84,8 @@ db.once('value', function(data) {
 			var cutoffTop = table.offset().top;
 			var cutoffBottom = tableHeight + cutoffTop - headerCellHeight;
 
-			$(window).scroll(function() {
-        var currentPosition = $(window).scrollTop();
+			win.scroll(function() {
+        var currentPosition = win.scrollTop();
 
 				if (currentPosition > cutoffTop && currentPosition < cutoffBottom) {
 					stickyHeader.removeClass('hide');
@@ -99,7 +101,7 @@ db.once('value', function(data) {
 
 	});
 
-	$(window).trigger('resize');
+	win.trigger('resize');
 	$('th div').popover({placement:'bottom',trigger:'hover',delay:100,title:'Browser Details',animation:false});
 
 	$('table:first th').each(function(num,elm){
