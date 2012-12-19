@@ -83,16 +83,17 @@ db.once('value', function(data) {
 			var cutoffBottom = tableHeight + cutoffTop - headerCellHeight;
 
 			$(window).scroll(function() {
-			var currentPosition = $(window).scrollTop();
+        var currentPosition = $(window).scrollTop();
+
 				if (currentPosition > cutoffTop && currentPosition < cutoffBottom) {
 					stickyHeader.removeClass('hide');
 					if (no_fixed_support) {
 						stickyHeader.css('top', currentPosition + 'px');
 					}
+          return;
 				}
-				else {
-					stickyHeader.addClass('hide');
-				}
+
+        stickyHeader.addClass('hide');
 			});
 		});
 
