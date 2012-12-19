@@ -14,165 +14,36 @@ db.once('value', function(data) {
 
 	$('table thead').append('<tr>'+header.join('')+'</tr>');
 
-	/**********************************************************************************
-	//window
-	**********************************************************************************/
+  function generateRowData( category ) {
+    var rows = [];
+    _.chain(data).filter(function(item){
+      return item.category === 'window';
+    }).pluck('name').uniq().each(function(prop){
 
-	var allWindowRows = [];
+      var row = ['<td><a href="https://developer.mozilla.org/en-US/search?q='+prop+'" target="_blank">'+prop+'</a></td>'];
 
-	_.chain(data).filter(function(item){return item.category === 'window'}).pluck('name').uniq().each(function(prop){
+      _.chain(data).filter(function(item){
+        return item.name === prop && item.category === category;
+      }).forEach(function(z){
+        row.push('<td class="'+z.supported+'">'+z.supported+'</td>');
+      });
 
-		var row = ['<td><a href="https://developer.mozilla.org/en-US/search?q='+prop+'" target="_blank">'+prop+'</a></td>'];
+      rows.push('<tr>'+row.join('')+'</tr>');
+    });
 
-		_.chain(data).filter(function(item){return item.name === prop && item.category === 'window'}).forEach(function(z){
-			row.push('<td class="'+z.supported+'">'+z.supported+'</td>');
-		});
+    $('table#' + category + ' tbody').append(rows.join(''));
+  }
 
-		allWindowRows.push('<tr>'+row.join('')+'</tr>');
-
-	});
-
-	$('table#window tbody').append(allWindowRows.join(''));
-
-	/**********************************************************************************
-	//document.implementation
-	**********************************************************************************/
-
-	var allDocumentImplementationRows = [];
-
-	_.chain(data).filter(function(item){return item.category === 'document-implementation'}).pluck('name').uniq().each(function(prop){
-
-		var row = ['<td><a href="https://developer.mozilla.org/en-US/search?q='+prop+'" target="_blank">'+prop+'</a></td>'];
-
-		_.chain(data).filter(function(item){return item.name === prop && item.category === 'document-implementation'}).forEach(function(z){
-			row.push('<td class="'+z.supported+'">'+z.supported+'</td>');
-		});
-
-		allDocumentImplementationRows.push('<tr>'+row.join('')+'</tr>');
-
-	});
-
-	$('table#document-implementation tbody').append(allDocumentImplementationRows.join(''));
-
-	/**********************************************************************************
-	//document
-	**********************************************************************************/
-
-	var allDocumentRows = [];
-
-	_.chain(data).filter(function(item){return item.category === 'document'}).pluck('name').uniq().each(function(prop){
-
-		var row = ['<td><a href="https://developer.mozilla.org/en-US/search?q='+prop+'" target="_blank">'+prop+'</a></td>'];
-
-		_.chain(data).filter(function(item){return item.name === prop && item.category === 'document'}).forEach(function(z){
-			row.push('<td class="'+z.supported+'">'+z.supported+'</td>');
-		});
-
-		allDocumentRows.push('<tr>'+row.join('')+'</tr>');
-
-	});
-
-	$('table#document tbody').append(allDocumentRows.join(''));
-
-	/**********************************************************************************
-	//element
-	**********************************************************************************/
-
-	var allElementRows = [];
-
-	_.chain(data).filter(function(item){return item.category === 'element'}).pluck('name').uniq().each(function(prop){
-
-		var row = ['<td><a href="https://developer.mozilla.org/en-US/search?q='+prop+'" target="_blank">'+prop+'</a></td>'];
-
-		_.chain(data).filter(function(item){return item.name === prop && item.category === 'element'}).forEach(function(z){
-			row.push('<td class="'+z.supported+'">'+z.supported+'</td>');
-		});
-
-		allElementRows.push('<tr>'+row.join('')+'</tr>');
-
-	});
-
-	$('table#element tbody').append(allElementRows.join(''));
-
-	/**********************************************************************************
-	//text
-	**********************************************************************************/
-
-	var allTextRows = [];
-
-	_.chain(data).filter(function(item){return item.category === 'text'}).pluck('name').uniq().each(function(prop){
-
-		var row = ['<td><a href="https://developer.mozilla.org/en-US/search?q='+prop+'" target="_blank">'+prop+'</a></td>'];
-
-		_.chain(data).filter(function(item){return item.name === prop && item.category === 'text'}).forEach(function(z){
-			row.push('<td class="'+z.supported+'">'+z.supported+'</td>');
-		});
-
-		allTextRows.push('<tr>'+row.join('')+'</tr>');
-
-	});
-
-	$('table#text tbody').append(allTextRows.join(''));
-
-	/**********************************************************************************
-	//window-event
-	**********************************************************************************/
-
-	var allWindowEventsRows = [];
-
-	_.chain(data).filter(function(item){return item.category === 'window-event'}).pluck('name').uniq().each(function(prop){
-
-		var row = ['<td><a href="https://developer.mozilla.org/en-US/search?q='+prop+'" target="_blank">'+prop+'</a></td>'];
-
-		_.chain(data).filter(function(item){return item.name === prop && item.category === 'window-event'}).forEach(function(z){
-			row.push('<td class="'+z.supported+'">'+z.supported+'</td>');
-		});
-
-		allWindowEventsRows.push('<tr>'+row.join('')+'</tr>');
-
-	});
-
-	$('table#window-event tbody').append(allWindowEventsRows.join(''));
-
-	/**********************************************************************************
-	//document-event
-	**********************************************************************************/
-
-	var allDocumentEventsRows = [];
-
-	_.chain(data).filter(function(item){return item.category === 'document-event'}).pluck('name').uniq().each(function(prop){
-
-		var row = ['<td><a href="https://developer.mozilla.org/en-US/search?q='+prop+'" target="_blank">'+prop+'</a></td>'];
-
-		_.chain(data).filter(function(item){return item.name === prop && item.category === 'document-event'}).forEach(function(z){
-			row.push('<td class="'+z.supported+'">'+z.supported+'</td>');
-		});
-
-		allDocumentEventsRows.push('<tr>'+row.join('')+'</tr>');
-
-	});
-
-	$('table#document-event tbody').append(allDocumentEventsRows.join(''));
-
-	/**********************************************************************************
-	//element-event
-	**********************************************************************************/
-
-	var allElementEventsRows = [];
-
-	_.chain(data).filter(function(item){return item.category === 'element-event'}).pluck('name').uniq().each(function(prop){
-
-		var row = ['<td><a href="https://developer.mozilla.org/en-US/search?q='+prop+'" target="_blank">'+prop+'</a></td>'];
-
-		_.chain(data).filter(function(item){return item.name === prop && item.category === 'element-event'}).forEach(function(z){
-			row.push('<td class="'+z.supported+'">'+z.supported+'</td>');
-		});
-
-		allElementEventsRows.push('<tr>'+row.join('')+'</tr>');
-
-	});
-
-	$('table#element-event tbody').append(allElementEventsRows.join(''));
+  _.each([
+    'window',
+    'document-implementation',
+    'document',
+    'element',
+    'text',
+    'window-event',
+    'document-event',
+    'element-event'
+  ], generateRowData);
 
 	$('#tableLoader').hide();
 	$('#tables').show();
