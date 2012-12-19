@@ -54,16 +54,16 @@ db.once('value', function(data) {
 
 		var tables = $('table.stickyHeader');
 		tables.each(function(i){
-			var table = tables[i];
-			var theadClone = $(table).find('thead').clone(true);
+			var table = $( tables[i] );
+			var theadClone = table.find('thead').clone(true);
 			var stickyHeader =  $('<div></div>').addClass('stickyHeader hide');
 			stickyHeader.append($('<table class="table table-bordered"></table>')).find('table').append(theadClone);
-			$(table).after(stickyHeader);
+			table.after(stickyHeader);
 
-			var tableHeight = $(table).height();
-      var tableWidth = $(table).width() + parseInt( $(table).outerWidth(), 10 );
+			var tableHeight = table.height();
+      var tableWidth = table.width() + parseInt( table.outerWidth(), 10 );
 
-			var headerCells = $(table).find('thead th');
+			var headerCells = table.find('thead th');
 			var headerCellHeight = $(headerCells[0]).height();
 
 			var no_fixed_support = false;
@@ -80,7 +80,7 @@ db.once('value', function(data) {
 				$(stickyHeaderCells[i]).css('width', cellWidth);
 			}
 
-			var cutoffTop = $(table).offset().top;
+			var cutoffTop = table.offset().top;
 			var cutoffBottom = tableHeight + cutoffTop - headerCellHeight;
 
 			$(window).scroll(function() {
