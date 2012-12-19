@@ -59,6 +59,7 @@ db.once('value', function(data) {
 			var table = $( tables[i] );
 			var theadClone = table.find('thead').clone(true);
 			var stickyHeader =  $('<div></div>').addClass('stickyHeader hide');
+
 			stickyHeader.append($('<table class="table table-bordered"></table>')).find('table').append(theadClone);
 			table.after(stickyHeader);
 
@@ -67,13 +68,9 @@ db.once('value', function(data) {
 
 			var headerCells = table.find('thead th');
 			var headerCellHeight = headerCells.first().height();
-
-			var no_fixed_support = false;
-			if (stickyHeader.css('position') == "absolute") {
-				no_fixed_support = true;
-			}
-
+      var noFixedSupport = stickyHeader.css('position') === 'absolute' ? true : false;
 			var stickyHeaderCells = stickyHeader.find('th');
+
 			stickyHeader.css('width', tableWidth);
 
       headerCells.each(function(j, headerCell) {
@@ -89,7 +86,7 @@ db.once('value', function(data) {
 
 				if (currentPosition > cutoffTop && currentPosition < cutoffBottom) {
 					stickyHeader.removeClass('hide');
-					if (no_fixed_support) {
+					if (noFixedSupport) {
 						stickyHeader.css('top', currentPosition + 'px');
 					}
           return;
