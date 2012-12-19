@@ -61,7 +61,7 @@ db.once('value', function(data) {
 			$(table).after(stickyHeader);
 
 			var tableHeight = $(table).height();
-			var tableWidth = $(table).width() + Number($(table).css('padding-left').replace(/px/ig,"")) + Number($(table).css('padding-right').replace(/px/ig,"")) + Number($(table).css('border-left-width').replace(/px/ig,"")) + Number($(table).css('border-right-width').replace(/px/ig,""));
+      var tableWidth = $(table).width() + parseInt( $(table).outerWidth(), 10 );
 
 			var headerCells = $(table).find('thead th');
 			var headerCellHeight = $(headerCells[0]).height();
