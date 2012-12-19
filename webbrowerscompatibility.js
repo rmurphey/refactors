@@ -74,10 +74,10 @@ db.once('value', function(data) {
 			var stickyHeaderCells = stickyHeader.find('th');
 			stickyHeader.css('width', tableWidth);
 
-			for (i=0; i<headerCells.length; i++) {
-				var headerCell = $(headerCells[i]);
+			for (var j=0; j<headerCells.length; j++) {
+				var headerCell = $(headerCells[j]);
 				var cellWidth = headerCell.width();
-				$(stickyHeaderCells[i]).css('width', cellWidth);
+				$(stickyHeaderCells[j]).css('width', cellWidth);
 			}
 
 			var cutoffTop = table.offset().top;
