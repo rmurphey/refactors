@@ -5,7 +5,7 @@ db.once('value', function(data) {
   //console.log(_.chain(data.val()).pluck('name').uniq().valueOf());
   //console.log(_.chain(data.val()).pluck('browser').pluck('description').uniq().valueOf());
 
-  var data = data.val();
+  data = data.val();
 
   var header = ['<th>&nbsp;</th>'];
 	_.chain(data).pluck('browser').pluck('description').uniq().each(function(browser){
